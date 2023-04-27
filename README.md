@@ -25,11 +25,7 @@ User are presented with a landing page and a "Get Started" button. By clicking t
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to updates tests as appropriate.
-
-## Tests
-
-n/a
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
 
 ## License
 
