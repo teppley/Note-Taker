@@ -15,7 +15,7 @@ This application allows the user to write, save, and delete notes. Added notes a
 
 ## Installation
 
-The application can be used at https://desolate-reaches-84591.herokuapp.com/notes
+The application can be used at https://desolate-reaches-84591.herokuapp.com
 
 To run this application locally, the code can be copied and installed from the terminal using (npm install). The app can veiwed using the localhost 3001 port. To initialize the port use (node server.js) from the terminal. Navigating to http://localhost:3001 in the browser will display the webpage. Using (ctrl + c) from the terminal will stop the port.
 
