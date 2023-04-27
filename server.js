@@ -1,16 +1,16 @@
-//require all dependencies
+//Require all dependencies
 
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-var PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 app.use(express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//direct user to correct page depending on url
+//Direct user to correct page depending on url
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"))
@@ -19,7 +19,7 @@ app.get("/notes", (req, res) => {
  res.sendFile(path.join(__dirname, "./public/notes.html"))
 });
 
-//send json of all notes if user accesses /api/notes
+//Send json of all notes if user accesses /api/notes
 
 app.get("/api/notes", (req, res) => {
 fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error,notes) => {
@@ -30,16 +30,16 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error,notes) => {
 })
 });
 
-//use POST method to bring user input to backend
+//Use POST method to bring user input to backend
 
 app.post("/api/notes", (req, res) => {
 
-  //declare const for the note currently being saved by user
+  //Declare const for the note currently being saved by user
 
   const currentNote = req.body;
 
-  //retrieve notes from db.json, get id of last note, add 1 to it to create 
-  //new id, save current note with new id
+  //Retrieve notes from db.json, get id of last note, add 1 to it to create 
+  //New id, save current note with new id
 
 fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
     if (error) {
@@ -47,8 +47,8 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
     }
     notes = JSON.parse(notes)
 
-    //assign unique id to each new note depending on last id.
-    //if no items in notes array, assign id as 10
+    //Assign unique id to each new note depending on last id.
+    //If no items in notes array, assign id as 10
 
     if (notes.length > 0) {
     let lastId = notes[notes.length - 1].id
@@ -57,7 +57,7 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
       var id = 10;
     }
 
-    //create new note object
+    //Create new note object
 
     let newNote = { 
       title: currentNote.title, 
@@ -65,11 +65,11 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
       id: id 
       }
 
-    //merge new note with existing notes array
+    //Merge new note with existing notes array
 
     var newNotesArr = notes.concat(newNote)
 
-    //write new array to db.json file and return it to user
+    //Write new array to db.json file and return it to user
 
     fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(newNotesArr), (error, data) => {
       if (error) {
@@ -81,7 +81,7 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
   });
 });
 
-//delete chosen note using delete http method
+//Delete chosen note using delete http method
 
 app.delete("/api/notes/:id", (req, res) => {
   let deleteId = JSON.parse(req.params.id);
@@ -92,7 +92,7 @@ app.delete("/api/notes/:id", (req, res) => {
     }
    let notesArray = JSON.parse(notes);
 
-   //loop through notes array and remove note with id matching deleteId
+   //Loop through notes array and remove note with id matching deleteId
 
    for (var i=0; i<notesArray.length; i++){
      if(deleteId == notesArray[i].id) {
@@ -111,6 +111,6 @@ app.delete("/api/notes/:id", (req, res) => {
 }); 
 });
 
-//initialize port 
+//Initialize port 
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
