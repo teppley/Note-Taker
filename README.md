@@ -21,7 +21,7 @@ To run this application locally, the code can be copied and installed from the t
 
 ## Usage
 
-User are presented with a landing page and a "Get Started" button. By clicking the button user are taken to another page where notes can be written and titled. Notes can be saved by click the floppy disk icon in the top right. Saved notes are displayed on the left side bar. Users can write a new note by clicking the pencil icon.
+User are presented with a landing page and a "Get Started" button. By clicking the button users are taken to another page where notes can be written and titled. Notes can be saved by clicking the floppy disk icon in the top right. Saved notes are displayed on the left side bar. Users can write a new note by clicking the pencil icon.
 
 ## Contributing
 
