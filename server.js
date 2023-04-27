@@ -33,6 +33,7 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error,notes) => {
 //use POST method to bring user input to backend
 
 app.post("/api/notes", (req, res) => {
+
   //declare const for the note currently being saved by user
 
   const currentNote = req.body;
@@ -68,8 +69,8 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
 
     var newNotesArr = notes.concat(newNote)
 
-    //write new array to db.json file and retuern it to user
-    
+    //write new array to db.json file and return it to user
+
     fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(newNotesArr), (error, data) => {
       if (error) {
         return error
@@ -79,3 +80,37 @@ fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error, notes) => {
     })
   });
 });
+
+//delete chosen note using delete http method
+
+app.delete("/api/notes/:id", (req, res) => {
+  let deleteId = JSON.parse(req.params.id);
+  console.log("ID to be deleted: " ,deleteId);
+  fs.readFile(path.join(__dirname, "./db/db.json"), "utf8", (error,notes) => {
+    if (error) {
+        return console.log(error)
+    }
+   let notesArray = JSON.parse(notes);
+
+   //loop through notes array and remove note with id matching deleteId
+
+   for (var i=0; i<notesArray.length; i++){
+     if(deleteId == notesArray[i].id) {
+       notesArray.splice(i,1);
+
+       fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(notesArray), (error, data) => {
+        if (error) {
+          return error
+        }
+        console.log(notesArray)
+        res.json(notesArray);
+      })
+     }
+  }
+  
+}); 
+});
+
+//initialize port 
+
+app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
